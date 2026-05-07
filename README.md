@@ -1,125 +1,69 @@
-# Tender-Mind-Ai
-AI-Based Tender Evaluation &amp; Eligibility Analysis for Government Procurement using OCR, NLP, Explainable AI &amp; Blockchain Audit Trails.
+# 🛡️ TenderMind AI
+### AI-powered Tender Evaluation System for CRPF Procurement
 
-## What is TenderMind AI?
-An AI-powered tender evaluation system for CRPF procurement. It reads tender documents, extracts eligibility criteria, and evaluates bidders automatically — reducing 30-45 days of manual work to under 2 minutes.
+> **Reducing 30-45 days of manual bid evaluation to under 2 minutes.**
 
 ---
 
-## Prerequisites
+## 🌐 Live Demo
 
-Install these before anything else:
+**Try it here:** https://huggingface.co/spaces/gargi-14/TenderMind-AI
 
-| Tool | Download Link |
+---
+
+## 💡 What is TenderMind AI?
+
+TenderMind AI is an intelligent procurement evaluation platform built for Indian paramilitary forces (CRPF). It uses AI to:
+
+- Automatically extract eligibility criteria from tender documents
+- Evaluate multiple bidders against those criteria instantly
+- Give a three-verdict decision: **Eligible / Not Eligible / Needs Manual Review**
+- Explain every decision with clause references (no black box)
+- Flag suspicious patterns automatically (fraud detection)
+- Maintain a tamper-proof blockchain-style audit trail
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
 |---|---|
-| Python 3.12+ | https://python.org/downloads — ⚠️ Check "Add to PATH" during install |
-| Node.js LTS | https://nodejs.org |
-| VS Code (recommended) | https://code.visualstudio.com |
+| 📄 AI Criteria Extraction | Upload any tender PDF/DOCX — AI reads and extracts all eligibility criteria |
+| ⚖️ Three-Verdict System | Eligible / Not Eligible / Needs Manual Review (not just pass/fail) |
+| 🔍 Explainable Decisions | Every verdict shows which clause was checked and why |
+| 🚨 Fraud Detection | AI flags suspicious or inconsistent information automatically |
+| 🔗 Blockchain Audit Trail | Every action logged with SHA-256 hash chain — tamper proof |
+| 📊 Bidder Dashboard | Side-by-side ranking of all bidders by score |
+| 🆓 Zero Cost | Entire system runs for free |
 
 ---
 
-## Project Structure
+## 🎯 How to Use (Live Demo)
 
-```
-TenderMind/
-├── backend/          ← Python FastAPI server (AI brain)
-│   ├── main.py
-│   ├── config.py     ← Put your API key here
-│   ├── db.py
-│   ├── routes/
-│   │   ├── tender.py
-│   │   ├── bidder.py
-│   │   └── report.py
-│   └── utils/
-│       ├── extract.py
-│       └── ai.py
-└── frontend/         ← React web interface
-    ├── src/
-    │   ├── pages/
-    │   │   ├── Home.jsx
-    │   │   ├── TenderUpload.jsx
-    │   │   ├── EvaluateBidders.jsx
-    │   │   ├── Dashboard.jsx
-    │   │   └── AuditLog.jsx
-    │   ├── App.jsx
-    │   └── index.css
-    └── vite.config.js
-```
+### Step 1 — Upload Tender
+1. Go to the live demo link above
+2. Click **"Upload Tender"** in the sidebar
+3. Upload a tender PDF, DOCX, or TXT file
+4. Click **"Extract Criteria"**
+5. AI will extract all eligibility criteria in ~30 seconds
+
+### Step 2 — Evaluate Bidders
+1. Click **"Evaluate Bidders"** in the sidebar
+2. Enter the Tender ID (shown after uploading)
+3. Enter the company name
+4. Upload the bidder's document
+5. Click **"Evaluate Bidder"**
+6. See the instant verdict with full explanation
+
+### Step 3 — View Dashboard
+1. Click **"Dashboard"** to see all bidders ranked by score
+2. Click **"Audit Log"** to see the blockchain hash chain
 
 ---
 
-## Step 1 — Get your FREE API Key
+## 🧪 Demo Files
 
-1. Go to **https://openrouter.ai**
-2. Sign up with Google
-3. Click **"Keys"** → **"Create Key"**
-4. Copy the key (starts with `sk-or-...`)
-5. Open `backend/config.py` and paste it:
-
-```python
-GEMINI_API_KEY = "sk-or-paste-your-key-here"
-```
-
----
-
-## Step 2 — Set up the Backend
-
-Open **PowerShell** and run these commands:
-
-```powershell
-cd Desktop\TenderMind\backend
-python -m venv venv
-venv\Scripts\activate
-pip install fastapi uvicorn python-multipart pdfplumber python-docx requests
-```
-
----
-
-## Step 3 — Start the Backend
-
-```powershell
-cd Desktop\TenderMind\backend
-venv\Scripts\activate
-python -m uvicorn main:app --port 8000
-```
-
-✅ You should see: `Application startup complete.`
-
-Verify at: **http://localhost:8000** → should show `{"status":"TenderMind AI is running"}`
-
----
-
-## Step 4 — Set up the Frontend
-
-Open a **NEW PowerShell window** and run:
-
-```powershell
-cd Desktop\TenderMind\frontend
-npm install
-```
-
----
-
-## Step 5 — Start the Frontend
-
-```powershell
-cd Desktop\TenderMind\frontend
-npm run dev
-```
-
-✅ You should see: `VITE ready on http://localhost:5173`
-
----
-
-## Step 6 — Open the App
-
-Go to **http://localhost:5173** in your browser.
-
----
-
-## Step 7 — Run the Demo
-
-Use these 4 demo files (create them as plain .txt files):
+Use these sample files to test the system:
 
 ### demo_tender.txt
 ```
@@ -136,7 +80,7 @@ C5. MSME Registration: Preference given to MSME firms (OPTIONAL)
 Quantity: 500 units. EMD: INR 2,50,000.
 ```
 
-### bidder1_apex.txt (Eligible)
+### bidder1_apex.txt → Expected: ✅ Eligible
 ```
 Company: Apex Defence Solutions Pvt Ltd
 GST Number: 07AABCA1234A1Z5 (Active)
@@ -146,7 +90,7 @@ BIS Certification: IS 17051:2022, valid till March 2027
 MSME Registration: UDYAM-DL-09-0012345
 ```
 
-### bidder2_cheap.txt (Not Eligible)
+### bidder2_cheap.txt → Expected: ❌ Not Eligible
 ```
 Company: Cheap Fabric House
 GST: Not registered
@@ -155,7 +99,7 @@ Experience: We make school uniforms since 2020
 BIS: Not applicable
 ```
 
-### bidder3_kaveri.txt (Needs Review)
+### bidder3_kaveri.txt → Expected: ⚠️ Needs Manual Review
 ```
 Company: Kaveri Tactical Pvt Ltd
 GST: 29AAGCK5678B1Z3 (Valid)
@@ -165,71 +109,93 @@ BIS Certification: Applied, approval pending
 MSME: Registered
 ```
 
-### Demo Flow:
-1. **Upload Tender** → upload `demo_tender.txt` → AI extracts 5 criteria
-2. **Evaluate Bidders** → add Apex Defence + `bidder1_apex.txt` → **Eligible ✅**
-3. **Evaluate Bidders** → add Cheap Fabric + `bidder2_cheap.txt` → **Not Eligible ❌**
-4. **Evaluate Bidders** → add Kaveri Tactical + `bidder3_kaveri.txt` → **Needs Review ⚠️**
-5. **Dashboard** → see all 3 ranked by score
-6. **Audit Log** → show tamper-proof blockchain hash chain
-
 ---
 
-## Every Time You Restart
-
-You need to run both servers every time:
-
-**Terminal 1 — Backend:**
-```powershell
-cd Desktop\TenderMind\backend
-venv\Scripts\activate
-python -m uvicorn main:app --port 8000
-```
-
-**Terminal 2 — Frontend:**
-```powershell
-cd Desktop\TenderMind\frontend
-npm run dev
-```
-
-Then open **http://localhost:5173**
-
----
-
-## Tech Stack
+## 🏗️ Tech Stack
 
 | Layer | Technology | Cost |
 |---|---|---|
 | Frontend | React + Vite | Free |
 | Backend | FastAPI (Python) | Free |
-| AI Engine | OpenRouter (LLaMA/GPT) | Free |
+| AI Engine | OpenRouter API | Free |
 | Database | SQLite | Free |
 | Audit Trail | SHA-256 Hash Chain | Free |
 | File Parsing | pdfplumber + python-docx | Free |
+| Hosting | Hugging Face Spaces | Free |
 
-**Total cost: ₹0**
-
----
-
-## Key Features
-
-- **AI Criteria Extraction** — Automatically reads tender PDFs/DOCX and extracts all eligibility criteria
-- **Three-Verdict System** — Eligible / Not Eligible / Needs Manual Review (not just pass/fail)
-- **Explainable Decisions** — Every verdict shows which clause was checked, what was found, and why
-- **Fraud Detection** — AI flags suspicious patterns automatically
-- **Blockchain Audit Trail** — Every action is logged with a SHA-256 hash chain (tamper-proof)
-- **VPRS Score** — Vendor Performance Rating Score out of 100
-- **Bidder Comparison** — Side-by-side ranking of all bidders
+**Total infrastructure cost: ₹0**
 
 ---
 
-## Troubleshooting
+## 🚀 Run Locally
 
-| Problem | Fix |
-|---|---|
-| `venv\Scripts\activate` fails | Run `Set-ExecutionPolicy RemoteSigned` first |
-| `No module named uvicorn` | Run `pip install uvicorn` inside venv |
-| Backend not starting | Make sure you activated venv first |
-| Frontend CORS error | Make sure `vite.config.js` has the proxy config |
-| AI returns error | Check your OpenRouter API key in `config.py` |
-| Port already in use | Change `--port 8000` to `--port 8001` |
+### Prerequisites
+- Python 3.12+
+- Node.js LTS
+- OpenRouter API key (free at openrouter.ai)
+
+### Step 1 — Get API key
+1. Go to **openrouter.ai** → Sign up → Create API key
+2. Open `backend/config.py` and paste your key:
+```python
+import os
+GEMINI_API_KEY = os.getenv("OPENROUTER_KEY", "your-key-here")
+```
+
+### Step 2 — Set up and run backend
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python -m uvicorn main:app --port 8000
+```
+
+### Step 3 — Set up and run frontend
+Open a new terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open **http://localhost:5173**
+
+---
+
+## 📁 Project Structure
+
+```
+TenderMind/
+├── backend/
+│   ├── main.py          ← FastAPI server
+│   ├── config.py        ← API key config
+│   ├── db.py            ← SQLite + audit trail
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   ├── static/          ← Built React frontend
+│   ├── routes/
+│   │   ├── tender.py    ← Tender upload & extraction
+│   │   ├── bidder.py    ← Bidder evaluation
+│   │   └── report.py    ← Dashboard & audit log
+│   └── utils/
+│       ├── ai.py        ← AI evaluation engine
+│       └── extract.py   ← PDF/DOCX text extraction
+└── frontend/
+    ├── src/
+    │   ├── pages/
+    │   │   ├── Home.jsx
+    │   │   ├── TenderUpload.jsx
+    │   │   ├── EvaluateBidders.jsx
+    │   │   ├── Dashboard.jsx
+    │   │   └── AuditLog.jsx
+    │   ├── App.jsx
+    │   └── index.css
+    └── vite.config.js
+```
+
+---
+
+## 👥 Team Teen Titans
+
+Built for hackathon demonstration of AI in government procurement.
